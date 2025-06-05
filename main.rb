@@ -1,4 +1,3 @@
-require_relative 'lib/board'
+# frozen_string_literal: true
 
-game = Game.new
-game.play
+require_relative 'bin/tic_tac_toe'
