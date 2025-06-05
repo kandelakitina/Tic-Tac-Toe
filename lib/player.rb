@@ -17,7 +17,8 @@ class Player
   private
 
   def human_move(board)
-    row, col = nil, nil
+    row = nil
+    col = nil
 
     loop do
       puts "Player #{mark}, enter your move."

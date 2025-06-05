@@ -15,4 +15,3 @@ class AIPlayer < Player
     choice
   end
 end
-

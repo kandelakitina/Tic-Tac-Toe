@@ -45,4 +45,3 @@ class GameController
     @board.winner || @board.full?
   end
 end
-
