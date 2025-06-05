@@ -4,10 +4,6 @@ require_relative 'player'
 
 # HumanPlayer represents a human-controlled player in the game.
 class HumanPlayer < Player
-  def initialize(mark)
-    super(mark, type: :human)
-  end
-
   def move(board)
     row = nil
     col = nil

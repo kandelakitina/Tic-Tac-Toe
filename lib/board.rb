@@ -3,8 +3,6 @@
 # The Board class encapsulates the state and behavior of the Tic-Tac-Toe game board.
 # It handles rendering, move placement, validation, and win condition checks.
 class Board
-  attr_reader :grid
-
   WINNING_LINES = [
     # Rows
     [[0, 0], [0, 1], [0, 2]],
@@ -25,25 +23,25 @@ class Board
 
   def display
     puts "\n"
-    grid.each { |row| puts row.join(' | ') }
+    @grid.each { |row| puts row.join(' | ') }
     puts "\n"
   end
 
   def valid_move?(row, col)
-    in_bounds?(row, col) && grid[row][col] == '_'
+    in_bounds?(row, col) && @grid[row][col] == '_'
   end
 
   def place_mark(row, col, mark)
-    grid[row][col] = mark if valid_move?(row, col)
+    @grid[row][col] = mark if valid_move?(row, col)
   end
 
   def full?
-    grid.flatten.none?('_')
+    @grid.flatten.none?('_')
   end
 
   def winner
     WINNING_LINES.each do |line|
-      marks = line.map { |r, c| grid[r][c] }
+      marks = line.map { |r, c| @grid[r][c] }
       return marks.first if marks.uniq.size == 1 && marks.first != '_'
     end
     nil
@@ -51,7 +49,7 @@ class Board
 
   def empty_positions
     positions = []
-    grid.each_with_index do |row, i|
+    @grid.each_with_index do |row, i|
       row.each_with_index do |cell, j|
         positions << [i, j] if cell == '_'
       end
