@@ -5,11 +5,12 @@
 # Players take turns to place their marks (:X or :O) on a 3x3 grid.
 # The game ends when a player has three of their marks in a row, column, or diagonal, or when the board is full.
 class Game
-  attr_accessor :current_mark, :board, :winner
+  attr_accessor :current_mark, :ai_mark, :board, :winner
 
   def initialize
     @board = Array.new(3) { Array.new(3, '_') }
     @current_mark = :X # or :O, depending on who you want to start
+    @ai_mark = :O
   end
 
   def display
@@ -44,15 +45,31 @@ class Game
   end
 
   def place_move
-    loop do
-      row, col = ask_for_move
-      if %i[X O].include?(board[row][col])
-        puts 'Slot already taken. Please choose another move.'
-      else
-        board[row][col] = current_mark
-        break
+    if current_mark == ai_mark # Replace :AI with the mark you assign for the computer
+      row, col = ai_move
+      puts "AI places on #{row}, #{col}"
+      board[row][col] = current_mark
+    else
+      loop do
+        row, col = ask_for_move
+        if %i[X O].include?(board[row][col])
+          puts 'Slot already taken. Please choose another move.'
+        else
+          board[row][col] = current_mark
+          break
+        end
       end
     end
+  end
+
+  def ai_move
+    empty_slots = []
+    board.each_with_index do |row, i|
+      row.each_with_index do |cell, j|
+        empty_slots << [i, j] if cell == '_'
+      end
+    end
+    empty_slots.sample
   end
 
   def switch_player
